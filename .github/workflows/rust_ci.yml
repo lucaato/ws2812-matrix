@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: CI
 
 on:
   push:
@@ -11,29 +11,48 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  rust-checks:
-    name: Rust Checks
+  host-checks:
+    name: Core and emulator (host)
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        action:
-          - command: build
-            args: --release
-          - command: fmt
-            args: --all -- --check
-          - command: clippy
-            args: --all-features --workspace -- -D warnings
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@v1
         with:
-          target: riscv32imc-unknown-none-elf
           toolchain: stable
-          components: rust-src, rustfmt, clippy
+          components: rustfmt, clippy
       - name: Enable caching
         uses: Swatinem/rust-cache@v2
-      - name: Run command
-        run: cargo ${{ matrix.action.command }} ${{ matrix.action.args }}
+      - name: Format
+        run: cargo fmt --all -- --check
+      - name: Clippy
+        run: >
+          cargo clippy -p ws2812-matrix-core -p ws2812-matrix-emulator
+          -- -D warnings
+      - name: Build emulator
+        run: cargo build -p ws2812-matrix-emulator --release
+      - name: Test core
+        run: cargo test -p ws2812-matrix-core
+
+  firmware-checks:
+    name: Firmware (riscv32imc)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: firmware
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@v1
+        with:
+          toolchain: stable
+          target: riscv32imc-unknown-none-elf
+          components: rust-src, clippy
+      - name: Enable caching
+        uses: Swatinem/rust-cache@v2
+      - name: Build
+        run: cargo build --release
+      - name: Clippy
+        run: cargo clippy -- -D warnings

@@ -32,7 +32,7 @@ mod ws2812;
 
 pub use color::Color;
 pub use composition::{
-    BufferedIterator2d, Chain2dIter, Composite2dIter, Flip2dIter, Position, HeightMismatch,
+    BufferedIterator2d, Chain2dIter, Composite2dIter, Flip2dIter, HeightMismatch, Position,
 };
 pub use glyph::{GraphicIter3by5, GraphicIter5by5};
 pub use scene::{team_matrix, TeamMatrix};
