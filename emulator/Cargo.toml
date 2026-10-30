@@ -1,0 +1,12 @@
+[package]
+name = "ws2812-matrix-emulator"
+description = "Desktop emulator for the ws2812-matrix demo, using the same 2D iterators as the firmware"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+ws2812-matrix-core = { path = "../core" }
+eframe = "0.30"

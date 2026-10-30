@@ -1,0 +1,10 @@
+[package]
+name = "ws2812-matrix-core"
+description = "no_std 2D-iterator toolkit for composing frames on WS2812 LED matrices"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+keywords = ["no_std", "embedded", "ws2812", "neopixel", "led"]
+categories = ["embedded", "no-std"]

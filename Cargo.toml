@@ -1,37 +1,13 @@
-[package]
-edition = "2021"
-name    = "led_matrix_control"
+[workspace]
+resolver = "2"
+members = ["core", "firmware", "emulator"]
+
+[workspace.package]
 version = "0.1.0"
-
-[[bin]]
-name = "led_matrix_control"
-path = "./src/bin/main.rs"
-
-[dependencies]
-bleps = { git = "https://github.com/bjoernQ/bleps", package = "bleps", rev = "a5148d8ae679e021b78f53fd33afb8bb35d0b62e", features = [
-  "async",
-  "macros",
-] }
-critical-section = "1.2.0"
-embedded-io = "0.6.1"
-esp-alloc = "0.7.0"
-esp-backtrace = { version = "0.15.1", features = [
-  "esp32c3",
-  "exception-handler",
-  "panic-handler",
-  "println",
-] }
-esp-hal = { version = "1.0.0-beta.0", features = ["esp32c3", "unstable"] }
-esp-println = { version = "0.13.0", features = ["esp32c3", "log"] }
-esp-wifi = { version = "0.13.0", features = [
-  "ble",
-  "builtin-scheduler",
-  "esp-alloc",
-  "esp32c3",
-  "log",
-] }
-heapless = { version = "0.8.0", default-features = false }
-log = { version = "0.4.21" }
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/lucaato/ws2812-matrix"
+authors = ["Luca Arato <luca.arato.work@gmail.com>"]
 
 [profile.dev]
 # Rust debug is too slow.
@@ -39,10 +15,10 @@ log = { version = "0.4.21" }
 opt-level = "s"
 
 [profile.release]
-codegen-units    = 1     # LLVM can perform better optimizations using a single thread
-debug            = 2
+codegen-units = 1
+debug         = 2
 debug-assertions = false
-incremental      = false
-lto              = 'fat'
-opt-level        = 's'
-overflow-checks  = false
+incremental   = false
+lto           = "fat"
+opt-level     = "s"
+overflow-checks = false

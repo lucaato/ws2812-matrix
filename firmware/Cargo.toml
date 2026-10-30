@@ -1,0 +1,25 @@
+[package]
+name = "ws2812-matrix"
+description = "WS2812B LED matrix firmware for ESP32-C3, driven by the RMT peripheral"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "ws2812-matrix"
+path = "src/main.rs"
+
+[dependencies]
+ws2812-matrix-core = { path = "../core" }
+esp-alloc = { version = "0.7.0" }
+esp-backtrace = { version = "0.15.1", features = [
+  "esp32c3",
+  "exception-handler",
+  "panic-handler",
+  "println",
+] }
+esp-hal = { version = "1.0.0-beta.0", features = ["esp32c3", "unstable"] }
+esp-println = { version = "0.13.0", features = ["esp32c3", "log"] }
+log = { version = "0.4.21" }

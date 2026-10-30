@@ -21,8 +21,6 @@
     in
     {
       overlays.default = final: prev: {
-        espGenerate = prev.callPackage ./esp-generate.nix {};
-
         rustToolchain =
           let
             rust = prev.rust-bin;
@@ -48,7 +46,6 @@
             cargo-watch
             rust-analyzer
 
-            espGenerate
             espflash
           ];
 
